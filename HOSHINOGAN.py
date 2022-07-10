@@ -30,11 +30,10 @@ torch.manual_seed(manualSeed)
 dataroot = "./hoshino_family"
 
 # Number of workers for dataloader
-workers = 4
+workers = 0
 
 # Batch size during training
-batch_size = 256
-
+batch_size = 128
 
 
 # Spatial size of training images. All images will be resized to this
@@ -54,7 +53,7 @@ ngf = 64
 ndf = 64
 
 # Number of training epochs
-num_epochs =2000
+num_epochs = 100
 
 # Learning rate for optimizers
 lr = 0.0002
@@ -63,7 +62,7 @@ lr = 0.0002
 beta1 = 0.5
 
 # Number of GPUs available. Use 0 for CPU mode.
-ngpu = 1
+ngpu = 0
 
 # We can use an image folder dataset the way we have it setup.
 # Create the dataset
@@ -93,7 +92,7 @@ dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
 
 
 # Decide which device we want to run on
-device = torch.device("cuda:1" if ngpu > 0 else "cpu")
+device = torch.device("cuda:0" if ngpu > 0 else "cpu")
 
 
 
