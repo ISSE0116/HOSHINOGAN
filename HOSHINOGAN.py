@@ -30,10 +30,11 @@ torch.manual_seed(manualSeed)
 dataroot = "./hoshino_family"
 
 # Number of workers for dataloader
-workers = 0
+workers = 4
 
 # Batch size during training
-batch_size = 128
+batch_size = 128 
+
 
 
 # Spatial size of training images. All images will be resized to this
@@ -53,7 +54,7 @@ ngf = 64
 ndf = 64
 
 # Number of training epochs
-num_epochs = 100
+num_epochs = 500
 
 # Learning rate for optimizers
 lr = 0.0002
@@ -62,7 +63,7 @@ lr = 0.0002
 beta1 = 0.5
 
 # Number of GPUs available. Use 0 for CPU mode.
-ngpu = 0
+ngpu = 1
 
 # We can use an image folder dataset the way we have it setup.
 # Create the dataset
@@ -73,6 +74,8 @@ dataset = dset.ImageFolder(root=dataroot,
                             transforms.RandomHorizontalFlip(0.5),
                                
                                #transforms.ColorJitter(brightness=0.5, contrast=0, saturation=0, hue=0),
+                               
+                               #transforms.RandomAffine(degrees=(-10, 10)),
 				
                                transforms.Resize(image_size),
 
@@ -92,7 +95,7 @@ dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
 
 
 # Decide which device we want to run on
-device = torch.device("cuda:0" if ngpu > 0 else "cpu")
+device = torch.device("cuda:1" if ngpu > 0 else "cpu")
 
 
 
@@ -219,7 +222,6 @@ optimizerG = optim.Adam(netG.parameters(), lr=lr, betas=(beta1, 0.999))
 img_list = []
 G_losses = []
 D_losses = []
-#D = []
 iters = 0
 
 print("Starting Training Loop...")
@@ -311,7 +313,6 @@ for epoch in range(num_epochs):
         # Save Losses for plotting later
         G_losses.append(errG.item())
         D_losses.append(errD.item())
-        #D.append(D_x.item())
 
         # Check how the generator is doing by saving G's output on fixed_noise
         if (iters % 500 == 0) or ((epoch == num_epochs-1) and (i == len(dataloader)-1)):
@@ -326,7 +327,6 @@ plt.figure(figsize=(10,5))
 plt.title("Generator and Discriminator Loss During Training")
 plt.plot(G_losses,label="G")
 plt.plot(D_losses,label="D")
-#plt.plot(D.label="Dx")
 plt.xlabel("iterations")
 plt.ylabel("Loss")
 plt.legend()
