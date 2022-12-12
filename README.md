@@ -6,5 +6,9 @@ image_hoshinofamilyディレクトリ内にある画像を使用して学習を�
 このソースコードはhttps://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html を参考に作成しています。
 
 # Sample Result
-異なるハイパーパラメータでの学習結果のサンプルは"eval"ファイルに格納してあります。
-![サンプル](eval/hoshino_family/128_2000_without_br/result.png "hero")
+"eval"ファイルに異なるハイパーパラメータでの学習結果のサンプルを格納しています。  
+↓実行結果例  
+<img src="eval/hoshino_family/128_2000_without_br/result.png" width="750px">
+
+# GUIによる顔特徴調整
+TBA...
